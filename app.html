@@ -2,7 +2,7 @@
 <html lang="en" class="h-100">
 
 <head>
-    <title>App Name: A Coding Project By Bailey Barton</title>
+    <title>Loan Shark: A Coding Project By Bailey Barton</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -21,7 +21,7 @@
     <!-- === Nav Section ===-->
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"><img class="d-inline-block align-text-top" src="img/BaileyBarton_WhtLogo.svg" width="36" height="30"> APP NAME</a>
+        <a class="navbar-brand" href="#"><img class="d-inline-block align-text-top" src="img/BaileyBarton_WhtLogo.svg" width="36" height="30"> Loan Shark</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
             aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -51,36 +51,51 @@
     <main class="flex-shrink-0">
         <div class="container col-xxl-8 px-4 py-5">
             <div class="row g-5 py-5 row-cols-1 row-cols-lg-2">
-                <div class="col order-last order-lg-first">
-                     <h1 class="display-5 fw-bold mb-3 lh-1">APP NAME: A Coding Project</h1>
-                     <h4 class="lead">Project Description Here</h4>
-                     <ul class="fa-ul pt-2 checklist">
-                         <li><span class="fa-li"><i class="fas fa-check-square"></i></span>CSS and Bootstrap Layout</li>
-                         <li><span class="fa-li"><i class="fas fa-check-square"></i></span>Javascript Fundamentals</li>
-                         <li><span class="fa-li"><i class="fas fa-check-square"></i></span>Javascript Loops</li>
-                         <li><span class="fa-li"><i class="fas fa-check-square"></i></span>Javascript Functions</li>
-                         <li><span class="fa-li"><i class="fas fa-check-square"></i></span>Javascript DOM Manipulation</li>
-                         <li><span class="fa-li"><i class="fas fa-check-square"></i></span>Javascript If/Then/Else</li>
-                         <li><span class="fa-li"><i class="fas fa-check-square"></i></span>Javascript Boolean Logic</li>
-                     </ul>
-                     <div>
-                         <button type="button" class="btn btn-outline-dark btn-lg px-4 me-md-2" href="app.html">Try It Out!</button>
-                     </div>
-                     <h5 class="fw-bold mt-5">
-                         <div class="d-flex">
-                             <div class="row">
-                                 <div class="col"><i class="fab fa-js-square fa-5x jsicon"></i></div>
-                                 <div class="col"><i class="fab fa-bootstrap fa-5x bsicon"></i></div>
-                                 <div class="col"><i class="fab fa-html5 fa-5x html5icon"></i></div>
-                                 <div class="col"><i class="fab fa-css3-alt fa-5x cssicon"></i></div>
-                             </div>
-                         </div>
-                     </h5>
+                <div class="col col-lg-6">
+                    <form class="p-2">
+                        <label>Loan Amount:</label>
+                        <input class="form-control" id="loanAmt" type="number" aria-label="Loan Amount">
+                        <label>Term (Months):</label>
+                        <input class="form-control" id="termAmt" type="number" aria-label="Term Amount">
+                        <label>Interest Rate:</label>
+                        <input class="form-control" id="interestRate" type="number" aria-label="Interest Rate">
+                        <div class="d-flex justify-content-end">
+                            <button id="btnSubmit" type="button" class="btn btn-outline-primary mt-2">Calculate</button>
+                        </div>
+                    </form>
                 </div>
-                <div class="col">
-                    <!-- <img src="#" class='img-fluid center-block d-block mx-auto' alt="App Logo Desc" width="700" height="500"> -->
+                <div class="col col-lg-6">
+                    <h3 class="d-flex justify-content-center" style="color:black; font-style:italic">Your Monthly Payments</h3>
+                    <h1 id="monthlyPayments" style="color:black; font-size:4em" class="d-flex justify-content-center">$0</h1>
+                    <div class="row mt-4">
+                        <div class="col-6">Total Principal:</div>
+                        <div id="totalPrincipal" class="col-6">$0</div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">Total Interest:</div>
+                        <div id="totalInterest" class=" col-6">$0</div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">Total Cost:</div>
+                        <div id="totalCost" class="col-6">$0</d>
+                    </div>
                 </div>
             </div>
+            <table id="tableResults" class="table table-sm table-striped">
+                <thead>
+                    <tr>
+                        <th rowspan="2" scope="col">Month</th>
+                        <th rowspan="2" scope="col">Payment</th>
+                        <th rowspan="2" scope="col">Principal</th>
+                        <th rowspan="2" scope="col">Interest</th>
+                        <th rowspan="2" scope="col">Total Interest</th>
+                        <th rowspan="2" scope="col">Balance</th>
+                    </tr>
+                </thead>
+                <tbody id="resultsBody">
+                    <!--Results will go here-->
+                </tbody>
+            </table>
         </div>
      </main>
      <!-- === Footer Section === -->
@@ -109,8 +124,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous">
     </script>
-    <script src="js/site.js">
-
+    <script src="js/site.js"></script>
+    <script>
+        document.getElementById("btnSubmit").addEventListener("click", getValues);
     </script>
 </body>
 

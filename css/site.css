@@ -48,6 +48,15 @@ pre[class*="language-"] {
     color:  var(--secondary-color);
 }
 
+thead {
+    background-color:#1d5888;
+    color:#e7e7e7;
+}
+
+form {
+    background-color: rgb(221, 221, 221);
+}
+
 footer {
     background-color: var(--dark-color);
 }
