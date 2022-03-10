@@ -52,6 +52,10 @@ thead {
     background-color:#1d5888;
     color:#e7e7e7;
 }
+ 
+.btn:hover {
+    background-color: var(--primary-color);
+}
 
 form {
     background-color: rgb(221, 221, 221);

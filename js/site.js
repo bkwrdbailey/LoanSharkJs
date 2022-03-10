@@ -9,10 +9,9 @@ function getValues() {
     intRate = parseInt(intRate);
 
     // Acquires monthly pay by passing in the user's inputted loan amount, loan term, and the interest rate
-    let mthlyPay = monthlyPayments(loanAmt, loanTerm, intRate)
+    let mthlyPay = monthlyPayments(loanAmt, loanTerm, intRate);
 
-    // Both functions display results based on the monthly pay variable
-    displayTotalResults(mthlyPay, loanAmt);
+    // Function displays table formatted results based on the monthly pay variable
     displayTableResults(mthlyPay, loanTerm, loanAmt, intRate);
 }
 
@@ -25,7 +24,7 @@ function monthlyPayments(amt, term, rate) {
 }
 
 // Outputs the total results for monthly pay, principal, interest, and cost
-function displayTotalResults(mthlyPay, loanAmt) {
+function displayTotalResults(mthlyPay, loanAmt, totalInt) {
 
     document.getElementById("monthlyPayments").innerHTML = "";
     document.getElementById("monthlyPayments").innerHTML = `$${mthlyPay.toString()}`;
@@ -33,21 +32,23 @@ function displayTotalResults(mthlyPay, loanAmt) {
     document.getElementById("totalPrincipal").innerHTML = "";
     document.getElementById("totalPrincipal").innerHTML = `$${loanAmt.toString()}`;
 
-    document.getElementById("monthlyPayments").innerHTML = "";
-    document.getElementById("monthlyPayments").innerHTML = `$${totalInt.toString()}`;
+    document.getElementById("totalInterest").innerHTML = "";
+    document.getElementById("totalInterest").innerHTML = `$${totalInt.toString()}`;
 
-    document.getElementById("totalPrincipal").innerHTML = "";
-    document.getElementById("totalPrincipal").innerHTML = `$${totalCost.toString()}`;
+    let totalCost = totalInt + loanAmt;
+
+    document.getElementById("totalCost").innerHTML = "";
+    document.getElementById("totalCost").innerHTML = `$${totalCost.toString()}`;
 
 }
 
 // Outputs results in a table format of the total loan being paid overtime with added interest
-function displayTableResults(mthlyPay, totalMonths, loanAmt, intRate) {
+function displayTableResults(mthlyPay, totalMonths, balance, intRate) {
     
-    let intPay = Math.round(loanAmt * (intRate/1200) * 100) / 100;
-    let princPay = Math.round((mthlyPay - intPay) * 100) / 100;
-    let totalInt = intPay;
-    let remainBal = loanAmt;
+    let mthlyIntPay = Math.round(loanAmt * (intRate/1200) * 100) / 100;
+    let mthlyPrincPay = Math.round((mthlyPay - intPay) * 100) / 100;
+    let totalInt = mthlyIntPay;
+    let remainBal = balance;
     let table = "";
 
     for (let i = 0; i <= totalMonths; i++) {
@@ -56,10 +57,12 @@ function displayTableResults(mthlyPay, totalMonths, loanAmt, intRate) {
 
         table += `<tr><th scope="row">${i}<th><td>${mthlyPay}<td><td>${princPay}<td><td>${intPay}<td><td>${totalInt}<td><td>${remainBal}<td><tr>`;
         
-        intPay = Math.round((remainBal * (intRate/1200)) * 100) / 100;
-        princPay = Math.round((mthlyPay - intPay) * 100) / 100;
+        mthlyIntPay = Math.round((remainBal * (intRate/1200)) * 100) / 100;
+        mthlyPrincPay = Math.round((mthlyPay - intPay) * 100) / 100;
         totalInt = Math.round((totalInt + intPay) * 100) / 100;
     }
+
+    displayTotalResults(mthlyPay, balance, totalInt,)
 
     document.getElementById("resultsBody").innerHTML = table;
 
